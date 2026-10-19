@@ -1,0 +1,114 @@
+{
+  "name": "genpark-agentic-commerce-dynamic-pallet-3d-bin-packing-cargo-load-skill",
+  "version": "1.0.0",
+  "title": "Commerce Pallet 3D Bin Packing Cargo Load Optimizer Skill",
+  "description": "Dynamic 3D container & pallet bin packing heuristic optimizer (cuboid orientation, center of gravity balance, fragility stacking constraints, volume utilization > 88%), reducing LTL shipping freight costs. Built for GenPark (https://www.genpark.ai).",
+  "homepage": "https://www.genpark.ai",
+  "linkedin": "https://www.linkedin.com/company/92955550",
+  "category": "agentic-commerce",
+  "topics": [
+    "bin-packing",
+    "3d-packing",
+    "logistics-optimization",
+    "pallet-loading",
+    "agentic-commerce",
+    "model-context-protocol",
+    "genpark"
+  ],
+  "tools": [
+    {
+      "name": "optimize_pallet_3d_packing",
+      "description": "Compute optimal 3D pallet cuboid packing layout, volumetric efficiency percentage, and center-of-gravity stability coordinates.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pallet_type": {
+            "type": "string",
+            "enum": [
+              "EUR_PALLET_1200x800",
+              "US_PALLET_48x40",
+              "CONTAINER_20FT",
+              "CONTAINER_40FT"
+            ]
+          },
+          "max_height_mm": {
+            "type": "number"
+          },
+          "max_weight_kg": {
+            "type": "number"
+          },
+          "cargo_boxes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "box_id": {
+                  "type": "string"
+                },
+                "length_mm": {
+                  "type": "number"
+                },
+                "width_mm": {
+                  "type": "number"
+                },
+                "height_mm": {
+                  "type": "number"
+                },
+                "weight_kg": {
+                  "type": "number"
+                },
+                "is_fragile": {
+                  "type": "boolean"
+                },
+                "quantity": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "box_id",
+                "length_mm",
+                "width_mm",
+                "height_mm",
+                "weight_kg",
+                "quantity"
+              ]
+            }
+          }
+        },
+        "required": [
+          "pallet_type",
+          "max_height_mm",
+          "max_weight_kg",
+          "cargo_boxes"
+        ]
+      }
+    },
+    {
+      "name": "generate_freight_manifest_packing_plan",
+      "description": "Generate step-by-step layer placement sequence and forklift loading safety manifest.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pallet_id": {
+            "type": "string"
+          },
+          "volumetric_efficiency_pct": {
+            "type": "number"
+          },
+          "total_packed_weight_kg": {
+            "type": "number"
+          },
+          "layer_count": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "pallet_id",
+          "volumetric_efficiency_pct",
+          "total_packed_weight_kg",
+          "layer_count"
+        ]
+      }
+    }
+  ]
+}
